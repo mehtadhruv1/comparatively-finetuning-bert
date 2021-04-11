@@ -150,6 +150,7 @@ test_accuracy=[]
 best_test_loss = float('inf')
 for epoch in tqdm(range(NUM_EPOCHS),desc="Epoch progress"):
     print()
+    print()
     print("EPOCH NO: %d" % (epoch + 1))
 
     train_loss, train_acc = train(model=model,
@@ -171,13 +172,11 @@ for epoch in tqdm(range(NUM_EPOCHS),desc="Epoch progress"):
 
     print(f'\tTrain Loss: {train_loss:.3f} | Train Accuracy: {train_acc * 100:.2f}%')
     print(f'\tTest Loss:  {test_loss:.3f} | Test Accuracy:  {test_acc * 100:.2f}%')
-    print(f'\tTrain Loss: {train_loss:.3f} | Train Accuracy: {train_acc * 100:.2f}%')
-    print(f'\tTest Loss:  {test_loss:.3f} | Test Accuracy:  {test_acc * 100:.2f}%')
-    
+        
     training_loss.append(float("{:.3f}".format( train_loss)))
     testing_loss.append(float("{:.3f}".format( test_loss)))
-    train_accuracy.append(float("{:.3f}".format(train_acc * 100)))
-    test_accuracy.append(float("{:.3f}".format(test_acc * 100)))
+    train_accuracy.append(float("{:.2f}".format(train_acc * 100)))
+    test_accuracy.append(float("{:.2f}".format(test_acc * 100)))
     print(training_loss)
     print(testing_loss)
     print(train_accuracy)
