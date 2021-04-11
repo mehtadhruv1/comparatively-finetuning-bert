@@ -6,6 +6,7 @@ BERT parameters, for the IMDB dataset.
 import logging
 import random
 import numpy as np
+from tqdm import tqdm
 
 import torch
 import torch.nn as nn
@@ -140,10 +141,15 @@ optimizer = AdamW(grouped_model_parameters)
 
 # Place model & loss function on GPU
 model, criterion = model.to(DEVICE), criterion.to(DEVICE)
-
+best_test_loss = float('inf')
+training_loss=[]
+testing_loss =[]
+train_accuracy = []
+test_accuracy=[]
 # Start actual training, check test loss after each epoch
 best_test_loss = float('inf')
-for epoch in range(NUM_EPOCHS):
+for epoch in tqdm(range(NUM_EPOCHS),desc="Epoch progress"):
+    print()
     print("EPOCH NO: %d" % (epoch + 1))
 
     train_loss, train_acc = train(model=model,
@@ -165,3 +171,41 @@ for epoch in range(NUM_EPOCHS):
 
     print(f'\tTrain Loss: {train_loss:.3f} | Train Accuracy: {train_acc * 100:.2f}%')
     print(f'\tTest Loss:  {test_loss:.3f} | Test Accuracy:  {test_acc * 100:.2f}%')
+    print(f'\tTrain Loss: {train_loss:.3f} | Train Accuracy: {train_acc * 100:.2f}%')
+    print(f'\tTest Loss:  {test_loss:.3f} | Test Accuracy:  {test_acc * 100:.2f}%')
+    
+    training_loss.append(float("{:.3f}".format( train_loss)))
+    testing_loss.append(float("{:.3f}".format( test_loss)))
+    train_accuracy.append(float("{:.3f}".format(train_acc * 100)))
+    test_accuracy.append(float("{:.3f}".format(test_acc * 100)))
+    print(training_loss)
+    print(testing_loss)
+    print(train_accuracy)
+    print(test_accuracy)
+import matplotlib.pyplot as plt
+
+
+epochs = range(1, len(training_loss) + 1)
+
+# "bo" is for "blue dot"
+plt.plot(epochs, training_loss, 'bo', label='Training loss')
+# b is for "solid blue line"
+plt.plot(epochs, testing_loss, 'b', label='Test loss')
+plt.title('Training and Test loss')
+plt.xlabel('Epochs')
+plt.ylabel('Loss')
+plt.legend()
+
+plt.show()
+
+
+# "bo" is for "blue dot"
+plt.plot(epochs, train_accuracy, 'bo', label='Training Accuracy')
+# b is for "solid blue line"
+plt.plot(epochs, test_accuracy, 'b', label='Test Accuracy')
+plt.title('Training and Test Accuracy')
+plt.xlabel('Epochs')
+plt.ylabel('Accuracy ( in %)')
+plt.legend()
+
+plt.show()
