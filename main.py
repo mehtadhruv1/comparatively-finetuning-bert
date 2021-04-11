@@ -177,10 +177,10 @@ for epoch in tqdm(range(NUM_EPOCHS),desc="Epoch progress"):
     testing_loss.append(float("{:.3f}".format( test_loss)))
     train_accuracy.append(float("{:.2f}".format(train_acc * 100)))
     test_accuracy.append(float("{:.2f}".format(test_acc * 100)))
-    print(training_loss)
-    print(testing_loss)
-    print(train_accuracy)
-    print(test_accuracy)
+    #print(training_loss)
+    #print(testing_loss)
+    #print(train_accuracy)
+    #print(test_accuracy)
 import matplotlib.pyplot as plt
 
 
