@@ -181,6 +181,11 @@ for epoch in tqdm(range(NUM_EPOCHS),desc="Epoch progress"):
     #print(testing_loss)
     #print(train_accuracy)
     #print(test_accuracy)
+
+print("Train Loss ", training_loss)
+print("Tesst Loss ", testing_loss)
+print("Train Acc ",train_accuracy)
+print("Test acc ",test_accuracy)
 import matplotlib.pyplot as plt
 
 
